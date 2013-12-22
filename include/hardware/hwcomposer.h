@@ -61,7 +61,7 @@ __BEGIN_DECLS
 
 
 /* possible overlay formats */
-typedef enum e_hwc_format 
+typedef enum e_hwc_format
 {
     HWC_FORMAT_MINVALUE     = 0x50,
     HWC_FORMAT_RGBA_8888    = 0x51,
@@ -69,14 +69,14 @@ typedef enum e_hwc_format
     HWC_FORMAT_BGRA_8888    = 0x53,
     HWC_FORMAT_YCbYCr_422_I = 0x54,
     HWC_FORMAT_CbYCrY_422_I = 0x55,
-    HWC_FORMAT_MBYUV420		= 0x56,
-    HWC_FORMAT_MBYUV422		= 0x57,
-    HWC_FORMAT_YUV420PLANAR	= 0x58,
+    HWC_FORMAT_MBYUV420	    = 0x56,
+    HWC_FORMAT_MBYUV422	    = 0x57,
+    HWC_FORMAT_YUV420PLANAR = 0x58,
     HWC_FORMAT_DEFAULT      = 0x99,    // The actual color format is determined
     HWC_FORMAT_MAXVALUE     = 0x100
 }e_hwc_format_t;
 
-typedef enum e_hwc_3d_src_mode 
+typedef enum e_hwc_3d_src_mode
 {
     HWC_3D_SRC_MODE_TB = 0x0,//top bottom
     HWC_3D_SRC_MODE_FP = 0x1,//frame packing
@@ -89,7 +89,7 @@ typedef enum e_hwc_3d_src_mode
 
 /* names for setParameter() */
 typedef enum e_hwc_3d_out_mode{
-    HWC_3D_OUT_MODE_2D 		            = 0x0,//left picture
+    HWC_3D_OUT_MODE_2D 		        = 0x0,//left picture
     HWC_3D_OUT_MODE_HDMI_3D_1080P24_FP 	= 0x1,
     HWC_3D_OUT_MODE_ANAGLAGH 	        = 0x2,//·ÖÉ«
     HWC_3D_OUT_MODE_ORIGINAL 	        = 0x3,//original pixture
@@ -122,7 +122,7 @@ typedef enum e_hwc_layer_cmd{
     HWC_LAYER_QUERYVBI = 8,
     /* set overlay screen id*/
     HWC_LAYER_SETMODE = 9,
-    
+
     HWC_LAYER_SHOW = 0xa,
     HWC_LAYER_RELEASE = 0xb,
     HWC_LAYER_SET3DMODE = 0xc,
@@ -140,9 +140,9 @@ typedef enum e_hwc_layer_cmd{
     HWC_LAYER_SET_3D_PARALLAX = 0x18,
     HWC_LAYER_SET_SCREEN_PARA = 0x19,
 
-	HWC_LAYER_SETTOP		= 0x1a,
-	HWC_LAYER_SETBOTTOM		= 0x1b,
-	HWC_LAYER_GET3DENABLE	= 0x1c,
+    HWC_LAYER_SETTOP	    = 0x1a,
+    HWC_LAYER_SETBOTTOM	    = 0x1b,
+    HWC_LAYER_GET3DENABLE   = 0x1c,
 }e_hwc_layer_cmd_t;
 
 typedef enum e_hwc_mode
@@ -175,7 +175,7 @@ typedef struct tag_Video3DInfo
 typedef struct tag_LIBHWCLAYERPARA
 {
     unsigned long   number;
-    
+
     unsigned long   top_y;              // the address of frame buffer, which contains top field luminance
     unsigned long   top_c;              // the address of frame buffer, which contains top field chrominance
     unsigned long   bottom_y;           // the address of frame buffer, which contains bottom field luminance
@@ -192,12 +192,12 @@ typedef struct tag_LIBHWCLAYERPARA
 
 typedef struct screen_para
 {
-    unsigned int width[2];//screen total width
-    unsigned int height[2];//screen total height
-    unsigned int valid_width[2];//screen width that can be seen
-    unsigned int valid_height[2];//screen height that can be seen
-    unsigned int app_width[2];//the width that app use
-    unsigned int app_height[2];//the height that app use
+    unsigned int width[2];        //screen total width
+    unsigned int height[2];       //screen total height
+    unsigned int valid_width[2];  //screen width that can be seen
+    unsigned int valid_height[2]; //screen height that can be seen
+    unsigned int app_width[2];    //the width that app use
+    unsigned int app_height[2];   //the height that app use
 }screen_para_t;
 
 
@@ -286,7 +286,8 @@ typedef struct hwc_layer_1 {
     /* see hwc_layer_t::flags */
     uint32_t flags;
 
-	uint32_t format;
+    uint32_t format;
+
     union {
         /* color of the background.  hwc_color_t.a is ignored */
         hwc_color_t backgroundColor;
@@ -703,9 +704,11 @@ typedef struct hwc_composer_device_1 {
     int (*getDisplayAttributes)(struct hwc_composer_device_1* dev, int disp,
             uint32_t config, const uint32_t* attributes, int32_t* values);
 
-	int         (*setparameter)(struct hwc_composer_device_1* dev,uint32_t cmd,uint32_t value);
-    uint32_t    (*getparameter)(struct hwc_composer_device_1* dev,uint32_t cmd);
-	int			(*setlayerorder)(struct hwc_composer_device_1 *dev, size_t numDisplays,  hwc_display_contents_1_t** displays, uint32_t cmd);
+    int      (*setparameter)(struct hwc_composer_device_1* dev,uint32_t cmd,uint32_t value);
+    uint32_t (*getparameter)(struct hwc_composer_device_1* dev,uint32_t cmd);
+
+    int	(*setlayerorder)(struct hwc_composer_device_1 *dev, size_t numDisplays,
+                         hwc_display_contents_1_t** displays, uint32_t cmd);
 
     /*
      * Reserved for future use. Must be NULL.
