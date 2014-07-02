@@ -40,6 +40,12 @@ __BEGIN_DECLS
 #define HWC_DEVICE_API_VERSION_1_2  HARDWARE_DEVICE_API_VERSION_2(1, 2, HWC_HEADER_VERSION)
 #define HWC_DEVICE_API_VERSION_1_3  HARDWARE_DEVICE_API_VERSION_2(1, 3, HWC_HEADER_VERSION)
 
+#define HWC_BLENDING_DIM        0x0805
+#define HWC_BLENDING_CLEAR_HOLE 0x0806
+
+#define HWC_Layer_DEBUG
+#define LayerNameLength         60
+
 enum {
     /* hwc_composer_device_t::set failed in EGL */
     HWC_EGL_ERROR = -1
@@ -102,6 +108,11 @@ enum {
 
     /* this layer will be handled in the HWC, using a blit engine */
     HWC_BLIT = 4,
+
+    HWC_TOWIN0,
+    HWC_TOWIN1,
+    HWC_TOWIN2,
+    HWC_TOWIN3,
 };
 
 /*

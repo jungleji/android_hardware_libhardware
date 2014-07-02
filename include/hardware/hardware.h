@@ -42,6 +42,7 @@ __BEGIN_DECLS
 #define HARDWARE_API_VERSION_2_MAJ_MIN_MASK 0xffff0000
 #define HARDWARE_API_VERSION_2_HEADER_MASK  0x0000ffff
 
+#define RK_FBIOSET_CONFIG_DONE         0x4628
 
 /*
  * The current HAL API version.

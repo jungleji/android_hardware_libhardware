@@ -198,6 +198,19 @@ typedef struct hwc_layer_1 {
             hwc_rect_t dirtyRect;
 #endif
 
+            char LayerName[LayerNameLength + 1];
+            int32_t bufferCount;
+            int32_t bufferUpdate;
+            int32_t bufferChange;
+            int32_t dospecialflag;
+            int32_t exTop;
+            int32_t exBottom;
+            int32_t exLeft;
+            int32_t exRight;
+            int32_t exAddrOffset;
+            uint32_t realtransform;
+            uint32_t direct_addr;
+
             /* Sync fence object that will be signaled when the buffer's
              * contents are available. May be -1 if the contents are already
              * available. This field is only valid during set(), and should be
@@ -383,6 +396,7 @@ typedef struct hwc_display_contents_1 {
      * performed by SurfaceFlinger.
      */
     uint32_t flags;
+    uint32_t skipflag;
     size_t numHwLayers;
     hwc_layer_1_t hwLayers[0];
 
@@ -539,6 +553,13 @@ typedef struct hwc_composer_device_1 {
      */
     int (*set)(struct hwc_composer_device_1 *dev,
                 size_t numDisplays, hwc_display_contents_1_t** displays);
+
+    int (*fbPost2)(struct hwc_composer_device_1 *dev,size_t numDisplays, hwc_display_contents_1_t** displays);
+    int (*fbPost3)(struct hwc_composer_device_1 *dev,size_t numDisplays, hwc_display_contents_1_t** displays,buffer_handle_t buffer);
+    int (*layer_recover)(struct hwc_composer_device_1 *dev,
+                         size_t numDisplays, hwc_display_contents_1_t** displays);
+    int (*rkCopybit)(struct hwc_composer_device_1 *dev, hwc_layer_1_t *src_layer,
+                     hwc_layer_1_t *dst_layer, int flag);
 
     /*
      * eventControl(..., event, enabled)
