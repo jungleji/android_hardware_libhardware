@@ -82,7 +82,9 @@ typedef enum {
 /** Bluetooth Adapter State */
 typedef enum {
     BT_STATE_OFF,
-    BT_STATE_ON
+    BT_STATE_ON,
+    BT_RADIO_OFF,
+    BT_RADIO_ON
 }   bt_state_t;
 
 /** Bluetooth Error Status */
@@ -445,6 +447,15 @@ typedef struct {
     /** Disable Bluetooth. */
     int (*disable)(void);
 
+    /** This ensures the chip is Powered ON  to support other radios in the combo chip.
+     * If the chip is OFF it set the chip to ON, if it is already ON it just increases the radio ref count
+     * to keep track when to Power OFF */
+    int (*enableRadio)(void);
+
+    /** This decreases radio ref count  and ensures that chip is Powered OFF
+     * when the radio ref count becomes zero. */
+    int (*disableRadio)(void);
+
     /** Closes the interface. */
     void (*cleanup)(void);
 
@@ -535,6 +546,10 @@ typedef struct {
 
     /* enable or disable bluetooth HCI snoop log */
     int (*config_hci_snoop_log)(uint8_t enable);
+
+    /** Get FM module interface */
+    const void* (*get_fm_interface) ();
+
     /** Scan with filter: white list, advertising data based white list, or both*/
     bt_status_t (*le_extended_scan)(bt_le_service_t service_list[], int entries,
                                     uint8_t scan_policy, int start);
